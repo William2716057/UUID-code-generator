@@ -29,23 +29,13 @@ def uuid_v1_rebuild(dt, clock_seq, node):
         node
     ))
 
-
+#taken from samples found on target site
 clock_seq = 11417
 node = 0x026ccdf7d769
 
 #Create possible values between given times
-start_hour = 0
-start_minute = 0
-while True:
-	start_minute += 1
+base = datetime.datetime(2025, 11, 21, tzinfo=datetime.timezone.utc)
 
-	if start_minute == 60:
-		start_minute = 0
-		start_hour += 1
-
-	if start_hour == 24:
-		break
-
-	dt = datetime.datetime(2025, 11, 21, start_hour, start_minute, 0) #YYYY-MM-dd-hh-mn-ss
-	u = uuid_v1_rebuild(dt, clock_seq, node)
-	print(u)
+for minute in range(24 * 60):
+    dt = base + datetime.timedelta(minutes=minute)
+    print(uuid_v1_rebuild(dt, clock_seq, node))
