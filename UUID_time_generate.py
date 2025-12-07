@@ -8,7 +8,12 @@ def uuid_v1_forge(dt, clock_seq, node):
     dt = dt.astimezone(datetime.timezone.utc)
 
     # Convert to 100ns intervals
-    intervals = int((dt - uuid_epoch).total_seconds() * 10_000_000)
+    #intervals = int((dt - uuid_epoch).total_seconds() * 10_000_000)
+
+	delta = dt - uuid_epoch
+		intervals = (
+    		delta.days * 86400 * 10_000_000 + delta.seconds * 10_000_000 + delta.microseconds * 10
+)
 
     # timestamp parts
     time_low = intervals & 0xFFFFFFFF
