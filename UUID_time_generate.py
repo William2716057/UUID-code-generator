@@ -2,7 +2,7 @@ import uuid
 import datetime
 
 #ID construction process
-def uuid_v1_rebuild(dt, clock_seq, node):
+def uuid_v1_forge(dt, clock_seq, node):
     # UUID epoch
     uuid_epoch = datetime.datetime(1582, 10, 15, tzinfo=datetime.timezone.utc)
     dt = dt.astimezone(datetime.timezone.utc)
@@ -38,4 +38,4 @@ base = datetime.datetime(2025, 11, 21, tzinfo=datetime.timezone.utc)
 
 for minute in range(24 * 60):
     dt = base + datetime.timedelta(minutes=minute)
-    print(uuid_v1_rebuild(dt, clock_seq, node))
+    print(uuid_v1_forge(dt, clock_seq, node))
