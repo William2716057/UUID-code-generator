@@ -7,8 +7,6 @@ def uuid_v1_forge(dt, clock_seq, node):
     uuid_epoch = datetime.datetime(1582, 10, 15, tzinfo=datetime.timezone.utc)
     dt = dt.astimezone(datetime.timezone.utc)
 
-    # Convert to 100ns intervals
-    #intervals = int((dt - uuid_epoch).total_seconds() * 10_000_000)
     delta = dt - uuid_epoch
     intervals = (
     	delta.days * 86400 * 10_000_000 +
@@ -36,13 +34,14 @@ def uuid_v1_forge(dt, clock_seq, node):
         node
     ))
 
-#taken from samples found on target site
+#chosen to match values used on target site
 clock_seq = 11417
 node = 0x026ccdf7d769
 
 #Create possible values between given times
 base = datetime.datetime(2025, 11, 21, tzinfo=datetime.timezone.utc)
 
+#produces code for every minute
 for minute in range(24 * 60):
     dt = base + datetime.timedelta(minutes=minute)
     print(uuid_v1_forge(dt, clock_seq, node))
